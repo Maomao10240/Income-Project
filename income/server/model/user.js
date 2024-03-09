@@ -27,5 +27,8 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
   }
 );
+const user = mongoose.model("user", userSchema);
+module.exports = user;
