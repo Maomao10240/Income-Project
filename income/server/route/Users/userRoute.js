@@ -2,6 +2,9 @@ const express = require("express");
 const userRoute = express.Router();
 const user = require("../../model/user");
 const bcrypt = require("bcryptjs");
+const generateToken = require("../../utils/generateToken");
+const isLogin = require("../../middlewares/isLogin");
+
 userRoute.post("/register", async (req, res, next) => {
   const { username, password, email } = req.body;
   try {
@@ -52,14 +55,16 @@ userRoute.post("/login", async (req, res, next) => {
       status: "Login success",
       username: userFound.username,
       id: userFound._id,
+      token: generateToken(userFound._id),
     });
   } catch (error) {
     next(new Error(error));
   }
 });
-userRoute.get("/profile/:id", async (req, res) => {
+userRoute.get("/profile/:id", isLogin, async (req, res) => {
   try {
-    res.json({ msg: "profile" });
+    const userFound = await user.findById(req.user);
+    res.json(userFound);
   } catch (error) {
     res.json(error);
   }
