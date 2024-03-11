@@ -61,26 +61,66 @@ userRoute.post("/login", async (req, res, next) => {
     next(new Error(error));
   }
 });
-userRoute.get("/profile/:id", isLogin, async (req, res) => {
+userRoute.get("/profile", isLogin, async (req, res) => {
   try {
-    const userFound = await user.findById(req.user);
+    const userFound = await user.findById(req.user).populate({
+      path: "accounts",
+      populate: {
+        path: "transactions",
+        model: "transaction",
+      },
+    });
     res.json(userFound);
   } catch (error) {
     res.json(error);
   }
 });
-userRoute.delete("/:id", async (req, res) => {
+userRoute.delete("/", isLogin, async (req, res) => {
   try {
+    const userFound = await user.findByIdAndDelete(req.user);
+    res.status(200).json({
+      status: "sucess",
+      data: null,
+    });
     res.json({ msg: "Delete" });
   } catch (error) {
     res.json(error);
   }
 });
-userRoute.put("/:id", async (req, res) => {
+userRoute.put("/profile", isLogin, async (req, res, next) => {
   try {
-    res.json({ msg: "Update" });
+    const userFound = await user.findOne({ email: req.body.email });
+    if (userFound) {
+      return next(new Error("Email is taken or you already have this email"));
+    }
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      const userUpdate = await user.findByIdAndUpdate(
+        req.user,
+        {
+          password: hashedPassword,
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      res.status(200).json({
+        status: "sucess",
+        data: userUpdate,
+      });
+    }
+    const userUpdate = await user.findByIdAndUpdate(req.user, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: "sucess",
+      data: userUpdate,
+    });
   } catch (error) {
-    res.json(error);
+    next(new Error(error.message));
   }
 });
 module.exports = userRoute;
