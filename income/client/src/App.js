@@ -5,6 +5,8 @@ import Login from "./Components/Forms/Login";
 import Register from "./Components/Forms/Register";
 import NavBar from "./Components/NavBar/Navbar";
 import AddTransaction from "./Components/Forms/AddTransaction";
+import AccountDashboard from "./Components/DashBoard/AccountDashboard";
+import AccountDetails from "./Components/DashBoard/AccountDetails";
 
 function App() {
   return (
@@ -14,6 +16,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<AccountDashboard />} />
+        <Route path="/account-details" element={<AccountDetails />} />
+
         <Route path="/addTransaction" element={<AddTransaction />} />
       </Routes>
     </BrowserRouter>
