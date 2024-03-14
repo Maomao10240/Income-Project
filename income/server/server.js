@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 require("./config/dbConnect");
 const app = express();
 const userRoute = require("./route/Users/userRoute");
@@ -8,7 +9,7 @@ const globalErrHand = require("./middlewares/globalErrHand");
 //users route
 //POST/api/v1/users
 app.use(express.json());
-
+app.use(cors());
 app.use("/api/v1/users", userRoute);
 //pass incoming data
 
