@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { authContext } from "../context/AuthContext/AuthContext";
+
 const Register = () => {
+  const { registerUserAction } = useContext(authContext);
+
   //form data
   const [formData, setFormData] = useState({
-    fullname: "",
+    username: "",
     email: "",
     password: "",
   });
   //Destructure
-  const { fullname, email, password } = formData;
+  const { username, email, password } = formData;
 
   //onChange
   const onChangeInput = (e) => {
@@ -18,9 +22,10 @@ const Register = () => {
   //Handle submit
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (!email || !password || !fullname) {
+    if (!email || !password || !username) {
       return alert("Please provide all details");
     }
+    registerUserAction(formData);
   };
 
   return (
@@ -58,9 +63,9 @@ const Register = () => {
                   Full Name
                 </label>
                 <input
-                  value={fullname}
+                  value={username}
                   onChange={onChangeInput}
-                  name="fullname"
+                  name="username"
                   className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-sm placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                   type="text"
                   placeholder="I-Nooovotek Academy"

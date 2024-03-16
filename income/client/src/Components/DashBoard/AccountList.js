@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const AccountList = ({ accounts }) => {
-  console.log(accounts);
+  // console.log(accounts);
 
   return (
     <>
@@ -49,7 +49,7 @@ const AccountList = ({ accounts }) => {
                             {acc?.name}
                           </h3>
                         </div>
-                        <Link to={`/account-details/`}>
+                        <Link to={`/account-details/${acc?._id}`}>
                           <div className="w-full md:w-1/2 md:text-right">
                             <div className="inline-flex items-center leading-6 text-green-500 group-hover:text-green-600 font-medium transition duration-200">
                               <span className="mr-2">View Account</span>

@@ -7,7 +7,7 @@ import NavBar from "./Components/NavBar/Navbar";
 import AddTransaction from "./Components/Forms/AddTransaction";
 import AccountDashboard from "./Components/DashBoard/AccountDashboard";
 import AccountDetails from "./Components/DashBoard/AccountDetails";
-
+import AddAccount from "./Components/Forms/AddAccount";
 function App() {
   return (
     <BrowserRouter>
@@ -17,7 +17,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<AccountDashboard />} />
-        <Route path="/account-details" element={<AccountDetails />} />
+        <Route
+          path="/account-details/:accountID"
+          element={<AccountDetails />}
+        />
+        <Route path="/add-account" element={<AddAccount />} />
 
         <Route path="/addTransaction" element={<AddTransaction />} />
       </Routes>
