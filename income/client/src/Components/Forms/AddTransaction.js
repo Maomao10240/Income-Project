@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { transContext } from "../context/TransactionContext/TransContext";
 
 export default function AddTransaction() {
+  const { id } = useParams();
+
+  const { createTransAction } = useContext(transContext);
+
   const [formData, setFormData] = useState({
     name: "",
     transactionType: "",
@@ -11,15 +18,16 @@ export default function AddTransaction() {
     date: "",
   });
   //handle form change
-  // const handleChange = e => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   //handle form submit
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   createTransactionAction({ account: accountID, ...formData });
-  // };
+  const handleSubmit = (e) => {
+    console.log(formData.name);
+    e.preventDefault();
+    createTransAction({ accountF: id, ...formData });
+  };
 
   return (
     <>
@@ -32,7 +40,7 @@ export default function AddTransaction() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Name
@@ -41,6 +49,7 @@ export default function AddTransaction() {
                   <input
                     name="name"
                     value={formData.name}
+                    onChange={handleChange}
                     type="text"
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
@@ -52,11 +61,12 @@ export default function AddTransaction() {
                 </label>
                 <select
                   name="transactionType"
+                  onChange={handleChange}
                   value={formData.transactionType}
                   className="mt-1 block w-full border-2 rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
                   <option value="Income">Income (+)</option>
-                  <option value="Expense">Expense (-)</option>
+                  <option value="Expense">Expenses (-)</option>
                 </select>
               </div>
               <div>
@@ -66,6 +76,7 @@ export default function AddTransaction() {
                 <div className="mt-1">
                   <input
                     name="amount"
+                    onChange={handleChange}
                     value={formData.amount}
                     type="number"
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -79,6 +90,7 @@ export default function AddTransaction() {
                 </label>
                 <select
                   name="category"
+                  onChange={handleChange}
                   value={formData.category}
                   className="mt-1 block w-full border-2 rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
@@ -86,14 +98,7 @@ export default function AddTransaction() {
                   <option value="Transportation">Transportation</option>
                   <option value="Entertainment">Entertainment</option>
                   <option value="Shopping">Shopping</option>
-                  <option value="Utilities">Utilities</option>
                   <option value="Healt">Health</option>
-                  <option value="Travel">Travel</option>
-                  <option value="Education">Education</option>
-                  <option value="Personal">Personal</option>
-                  <option value="Groceries">Groceries</option>
-                  <option value="Bills">Bills</option>
-                  <option value="Uncategorized">Uncategorized</option>
                 </select>
               </div>
               <div>
@@ -102,6 +107,7 @@ export default function AddTransaction() {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={handleChange}
                     value={formData.color}
                     name="color"
                     style={{
@@ -121,6 +127,7 @@ export default function AddTransaction() {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={handleChange}
                     name="date"
                     value={formData.date}
                     type="date"
@@ -135,6 +142,7 @@ export default function AddTransaction() {
                 </label>
                 <div className="mt-1">
                   <textarea
+                    onChange={handleChange}
                     rows={4}
                     name="notes"
                     value={formData.notes}

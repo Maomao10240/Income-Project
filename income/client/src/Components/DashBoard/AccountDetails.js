@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import AllTransactions from "../DashBoard/AllTransactions";
 import { useContext, useEffect } from "react";
 import { accountContext } from "../context/AccountContext/AccountContext";
+import { PlusIcon } from "@heroicons/react/20/solid";
 
 export default function AccountDetails() {
   const { getAccountDetailsAction, account } = useContext(accountContext);
@@ -95,12 +96,26 @@ export default function AccountDetails() {
               </div>
             </div>
           </div>
-          <AllTransactions transactions={account?.transactions} />
+          <AllTransactions
+            transactions={account?.transactions}
+            accountID={accountID}
+          />
         </>
       ) : (
-        <h2 className="text-center text-red-500">
-          This account do not have any transaction{" "}
-        </h2>
+        <>
+          <h2 className="text-center text-red-500">
+            This account do not have any transaction{" "}
+          </h2>
+          <div className="text-center mt-3">
+            <Link
+              to={`/addTransaction/${accountID}`}
+              className="relative inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+            >
+              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              <span>New Transaction</span>
+            </Link>
+          </div>
+        </>
       )}
     </>
   );

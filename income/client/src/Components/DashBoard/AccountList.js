@@ -83,7 +83,7 @@ const AccountList = ({ accounts }) => {
                   to create one.
                 </p>
                 <a
-                  href="/dashboard/accounts/create"
+                  href="/add-account"
                   className="px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                 >
                   Create Account

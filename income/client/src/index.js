@@ -5,11 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AuthContextProvider from "./Components/context/AuthContext/AuthContext";
 import AccountContextProvider from "./Components/context/AccountContext/AccountContext";
+import TransContextProvider from "./Components/context/TransactionContext/TransContext";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthContextProvider>
     <AccountContextProvider>
-      <App />
+      <TransContextProvider>
+        <App />
+      </TransContextProvider>
     </AccountContextProvider>
   </AuthContextProvider>
 );

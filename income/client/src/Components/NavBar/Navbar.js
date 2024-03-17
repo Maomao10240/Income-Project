@@ -47,12 +47,12 @@ export default function Navbar() {
                   {token && (
                     <>
                       <>
-                        <Link
+                        {/* <Link
                           to="/addTransaction"
                           className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                         >
                           Add Transaction
-                        </Link>
+                        </Link> */}
                         <Link
                           to="/dashboard"
                           className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -62,21 +62,23 @@ export default function Navbar() {
                       </>
                     </>
                   )}
+                  {!token && (
+                    <>
+                      <Link
+                        to="/login"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        to="/register"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      >
+                        Register
+                      </Link>
+                    </>
+                  )}
 
-                  <>
-                    <Link
-                      to="/login"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      to="/register"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Register
-                    </Link>
-                  </>
                   {token && (
                     <>
                       <button
@@ -88,20 +90,22 @@ export default function Navbar() {
                     </>
                   )}
                 </div>
-              </div>
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <a
-                    href="/dashboard"
-                    className="relative inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <PlusIcon
-                      className="-ml-1 mr-2 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                    <span>New Transaction</span>
-                  </a>
-                </div>
+                {!token && (
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0">
+                      <a
+                        href="/dashboard"
+                        className="relative inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                      >
+                        <PlusIcon
+                          className="-ml-1 mr-2 h-5 w-5"
+                          aria-hidden="true"
+                        />
+                        <span>New Account</span>
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

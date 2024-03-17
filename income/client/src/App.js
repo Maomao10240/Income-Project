@@ -23,7 +23,7 @@ function App() {
         />
         <Route path="/add-account" element={<AddAccount />} />
 
-        <Route path="/addTransaction" element={<AddTransaction />} />
+        <Route path="/addTransaction/:id" element={<AddTransaction />} />
       </Routes>
     </BrowserRouter>
   );

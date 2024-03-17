@@ -5,7 +5,7 @@ const account = require("../../model/account");
 const isLogin = require("../../middlewares/isLogin");
 const transaction = require("../../model/transaction");
 
-accountRoute.post("/register", isLogin, async (req, res, next) => {
+accountRoute.post("/add-account", isLogin, async (req, res, next) => {
   const { name, initialBalance, accountType, notes } = req.body;
 
   try {
